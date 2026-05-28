@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>甘特圖製作工具</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,700;1,400&family=Noto+Sans+TC:wght@300;400;500;700&family=Noto+Serif+TC:wght@400;700&family=Inter:wght@300;400;500;700&family=Roboto:wght@300;400;500;700&family=Open+Sans:wght@300;400;600;700&family=Playfair+Display:wght@400;700&family=Oswald:wght@300;400;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles/global_reset_and_variables.css">
+  <link rel="stylesheet" href="styles/layout_page_shell.css">
+  <link rel="stylesheet" href="styles/input_form_page.css">
+  <link rel="stylesheet" href="styles/gantt_preview_page.css">
+  <link rel="stylesheet" href="styles/color_theme_selector.css">
+</head>
+<body>
+
+  <div class="app-shell">
+
+    <!-- ===== 頂部導覽列 ===== -->
+    <header class="app-header">
+      <div class="header-brand">
+        <div class="brand-icon">G</div>
+        <span class="brand-title">甘特圖製作工具</span>
+      </div>
+      <nav class="page-nav">
+        <button class="nav-btn" id="nav-btn-input" onclick="PageRouter.goToInput()">1 &nbsp; 輸入資料</button>
+        <span class="nav-sep">&#8250;</span>
+        <button class="nav-btn" id="nav-btn-preview" onclick="PageRouter.goToPreview()">2 &nbsp; 預覽 &amp; 匯出</button>
+      </nav>
+      <button class="btn-lang" id="lang-toggle-btn" onclick="toggleLang()" title="切換圖表語言 / Toggle chart language">EN</button>
+    </header>
+
+    <!-- ===== 頁面 1：輸入表單 ===== -->
+    <main class="page" id="page-input">
+
+      <!-- 圖表設定 -->
+      <section class="form-section">
+        <h2 class="section-title">圖表設定</h2>
+        <div class="meta-grid">
+          <div class="field-group span-2">
+            <label class="field-label">圖表標題</label>
+            <input type="text" id="chart-title" placeholder="例：2026 專案甘特圖">
+          </div>
+          <div class="field-group">
+            <label class="field-label">起始年月</label>
+            <input type="month" id="date-range-start" value="2026-05">
+          </div>
+          <div class="field-group">
+            <label class="field-label">結束年月</label>
+            <input type="month" id="date-range-end" value="2026-12">
+          </div>
+          <div class="field-group span-full">
+            <label class="field-label">顯示選項</label>
+            <div class="toggle-row">
+              <label class="toggle-label">
+                <input type="checkbox" id="show-grid-lines" checked>
+                <span class="toggle-track"></span>
+                <span class="toggle-text">顯示格線</span>
+              </label>
+              <label class="toggle-label">
+                <input type="checkbox" id="show-date-labels" checked>
+                <span class="toggle-track"></span>
+                <span class="toggle-text">顯示日期</span>
+              </label>
+              <label class="toggle-label">
+                <input type="checkbox" id="show-legend" checked>
+                <span class="toggle-track"></span>
+                <span class="toggle-text">顯示圖例</span>
+              </label>
+            </div>
+          </div>
+          <div class="field-group span-2">
+            <label class="field-label">格線樣式</label>
+            <select id="grid-style-select">
+              <option value="cross-dashed">直條 + 虛線（推薦）</option>
+              <option value="full-grid">方格（實線）</option>
+              <option value="vertical">僅直條</option>
+              <option value="none">無格線</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <!-- 階段設定 -->
+      <section class="form-section">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">階段設定</h2>
+            <p class="section-hint">定義 bar 中各顏色段的名稱（如：執行時間、測試時間），圖例會自動產生。</p>
+          </div>
+          <button class="btn-add-task" onclick="addPhase()">
+            <span class="btn-add-plus">+</span> 新增階段
+          </button>
+        </div>
+        <div id="phase-list" class="phase-list">
+          <!-- 由 app_init.js 動態插入 -->
+        </div>
+      </section>
+
+      <!-- 任務清單 -->
+      <section class="form-section">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title">任務清單</h2>
+            <p class="section-hint">每個任務可包含多個顏色區段（對應上方階段設定）。</p>
+          </div>
+          <button class="btn-add-task" onclick="addTask()">
+            <span class="btn-add-plus">+</span> 新增任務
+          </button>
+        </div>
+        <div id="task-list" class="task-list">
+          <!-- 由 app_init.js 動態插入 -->
+        </div>
+      </section>
+
+      <div class="form-footer">
+        <button class="btn-primary btn-large" onclick="PageRouter.goToPreview()">
+          前往預覽 &#8250;
+        </button>
+      </div>
+
+    </main>
+
+    <!-- ===== 頁面 2：預覽與匯出 ===== -->
+    <main class="page hidden" id="page-preview">
+      <div class="preview-layout">
+
+        <!-- 左：樣式面板 -->
+        <aside class="style-panel">
+          <h2 class="section-title" style="margin-bottom:18px">樣式設定</h2>
+
+          <div class="style-block">
+            <p class="style-label">主題風格</p>
+            <div id="theme-cards" class="theme-cards"></div>
+          </div>
+
+          <div class="style-block">
+            <p class="style-label">字體</p>
+            <select id="font-select" onchange="applyStyleFromControls()"></select>
+            <div id="font-preview-text" class="font-preview-text">文字預覽 Gantt 2026</div>
+          </div>
+
+          <div class="style-block">
+            <p class="style-label">字體大小</p>
+            <div class="size-control">
+              <input type="range" id="font-size-slider" min="8" max="20" value="12" oninput="applyStyleFromControls()">
+              <span id="font-size-display">12px</span>
+            </div>
+          </div>
+
+          <div class="style-block">
+            <p class="style-label">背景顏色</p>
+            <div class="color-row">
+              <input type="color" id="bg-color-input" value="#ffffff" oninput="onBgColorChange(this.value)">
+              <span id="bg-color-hex" class="hex-display">#ffffff</span>
+            </div>
+          </div>
+
+          <div class="style-block">
+            <p class="style-label">格線顏色</p>
+            <div class="color-row">
+              <input type="color" id="grid-color-input" value="#D3D1C7" oninput="onGridColorChange(this.value)">
+              <span id="grid-color-hex" class="hex-display">#D3D1C7</span>
+            </div>
+          </div>
+
+          <div class="style-block">
+            <p class="style-label">標題列顏色</p>
+            <div class="color-row">
+              <input type="color" id="header-fill-input" value="#1e40af" oninput="onHeaderFillChange(this.value)">
+              <span id="header-fill-hex" class="hex-display">#1e40af</span>
+            </div>
+          </div>
+
+          <div class="style-block">
+            <p class="style-label">格線樣式</p>
+            <select id="preview-grid-style" onchange="onGridStyleChange(this.value)">
+              <option value="cross-dashed">直條 + 虛線</option>
+              <option value="full-grid">方格（實線）</option>
+              <option value="vertical">僅直條</option>
+              <option value="none">無格線</option>
+            </select>
+          </div>
+
+          <div class="style-block">
+            <p class="style-label">階段顏色</p>
+            <div id="phase-color-controls" class="task-color-list"></div>
+          </div>
+
+        </aside>
+
+        <!-- 右：圖表預覽 -->
+        <div class="preview-canvas-area">
+          <div class="preview-toolbar">
+            <div class="toolbar-left">
+              <button class="btn-secondary" onclick="PageRouter.goToInput()">&#8249; 返回編輯</button>
+              <span id="time-scale-indicator" class="time-scale-badge">時間單位：月</span>
+            </div>
+            <div class="export-buttons">
+              <button class="btn-primary" onclick="ImageDownloader.downloadPNG()">下載 PNG</button>
+              <button class="btn-outline"  onclick="ImageDownloader.downloadSVG()">下載 SVG</button>
+            </div>
+          </div>
+
+          <div id="gantt-preview-wrapper" class="gantt-preview-wrapper">
+            <div id="gantt-preview-container" class="gantt-preview-container"></div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+
+  </div><!-- /.app-shell -->
+
+  <!-- ===== Scripts ===== -->
+  <script src="scripts/data_state_store.js"></script>
+  <script src="scripts/color_theme_presets.js"></script>
+  <script src="scripts/font_options_config.js"></script>
+  <script src="scripts/gantt_svg_renderer.js"></script>
+  <script src="scripts/image_download_handler.js"></script>
+  <script src="scripts/page_router.js"></script>
+  <script src="scripts/app_init.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,123 @@
+/* =====================================================
+   應用程式殼層：Header、導覽列、頁面容器
+   ===================================================== */
+
+.app-shell {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ─── 頂部 Header ───────────────────────────────── */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border);
+  box-shadow: var(--shadow-sm);
+  height: 62px;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 品牌標誌 */
+.header-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+}
+
+.brand-icon {
+  width: 34px;
+  height: 34px;
+  background: linear-gradient(135deg, var(--accent) 0%, #818cf8 100%);
+  border-radius: var(--r-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  box-shadow: 0 2px 8px var(--accent-shadow);
+}
+
+.brand-title {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+/* 步驟導覽 */
+.page-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: var(--bg-surface-3);
+  border: 1px solid var(--border);
+  border-radius: var(--r-full);
+  padding: 4px;
+}
+
+.nav-btn {
+  padding: 7px 20px;
+  border-radius: var(--r-full);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  background: transparent;
+  white-space: nowrap;
+  transition: all var(--ease);
+}
+
+.nav-btn.active {
+  background: var(--accent);
+  color: #fff;
+  font-weight: 600;
+  box-shadow: 0 2px 8px var(--accent-shadow);
+}
+
+.nav-btn:hover:not(.active) {
+  background: var(--accent-light);
+  color: var(--accent);
+}
+
+.nav-sep {
+  color: var(--text-muted);
+  font-size: 16px;
+  line-height: 1;
+  padding: 0 2px;
+  user-select: none;
+}
+
+/* 語言切換按鈕 */
+.btn-lang {
+  padding: 6px 14px;
+  border-radius: var(--r-full);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent);
+  border: 1.5px solid var(--accent);
+  background: transparent;
+  letter-spacing: 0.04em;
+  transition: all var(--ease);
+}
+
+.btn-lang:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+/* ─── 頁面主體 ──────────────────────────────────── */
+.page {
+  flex: 1;
+  padding: 28px 32px 48px;
+  max-width: 1320px;
+  margin: 0 auto;
+  width: 100%;
+}

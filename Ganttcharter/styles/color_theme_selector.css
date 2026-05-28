@@ -1,0 +1,98 @@
+/* =====================================================
+   主題風格選擇卡片
+   ===================================================== */
+
+.theme-cards {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 6px;
+}
+
+.theme-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 4px 8px;
+  border-radius: var(--r-md);
+  border: 2px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: all var(--ease);
+  flex-shrink: 0;
+}
+
+.theme-card:hover {
+  background: var(--bg-surface-3);
+  border-color: var(--border-hover);
+}
+
+.theme-card.active {
+  border-color: var(--accent);
+  background: var(--accent-light);
+}
+
+/* 迷你預覽色塊 */
+.theme-mini-preview {
+  width: 100%;
+  height: 38px;
+  border-radius: var(--r-sm);
+  padding: 5px 4px 4px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  border: 1.5px solid;
+  overflow: hidden;
+}
+
+.theme-mini-bar {
+  height: 7px;
+  border-radius: 3px;
+  border: 1px solid rgba(0,0,0,0.15);
+}
+
+.theme-mini-bar.w-full { width: 85%; }
+.theme-mini-bar.w-half { width: 50%; }
+.theme-mini-bar.w-quarter { width: 30%; }
+
+/* 名稱標籤 */
+.theme-card-name {
+  font-size: 9.5px;
+  font-weight: 600;
+  color: var(--text-secondary);
+  text-align: center;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  line-height: 1.3;
+}
+
+.theme-card.active .theme-card-name {
+  color: var(--accent);
+}
+
+/* 風格標籤（正式 / 活潑） */
+.theme-card-tag {
+  font-size: 8.5px;
+  padding: 1px 5px;
+  border-radius: var(--r-full);
+  font-weight: 600;
+  line-height: 1.5;
+}
+
+.tag-formal {
+  background: #e0e7ff;
+  color: #3730a3;
+}
+
+.tag-lively {
+  background: #fce7f3;
+  color: #9d174d;
+}
+
+.tag-neutral {
+  background: #f1f5f9;
+  color: #475569;
+}

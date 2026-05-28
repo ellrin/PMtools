@@ -1,0 +1,182 @@
+/* =====================================================
+   全域 CSS 變數、Reset、基礎元素樣式
+   ===================================================== */
+
+:root {
+  /* 主色系 */
+  --accent:          #6366f1;
+  --accent-hover:    #4f46e5;
+  --accent-light:    #eef2ff;
+  --accent-shadow:   rgba(99, 102, 241, 0.28);
+
+  /* 背景與表面 */
+  --bg-page:         #f1f5f9;
+  --bg-surface:      #ffffff;
+  --bg-surface-2:    #f8fafc;
+  --bg-surface-3:    #f1f5f9;
+
+  /* 邊框 */
+  --border:          #e2e8f0;
+  --border-hover:    #c7d2fe;
+
+  /* 文字 */
+  --text-primary:    #0f172a;
+  --text-secondary:  #475569;
+  --text-muted:      #94a3b8;
+
+  /* 狀態色 */
+  --success:         #10b981;
+  --danger:          #ef4444;
+  --danger-light:    #fee2e2;
+
+  /* 圓角 */
+  --r-sm:   6px;
+  --r-md:   10px;
+  --r-lg:   16px;
+  --r-xl:   22px;
+  --r-full: 9999px;
+
+  /* 陰影 */
+  --shadow-sm:  0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md:  0 4px 12px rgba(0,0,0,0.08), 0 2px 4px rgba(0,0,0,0.04);
+  --shadow-lg:  0 10px 28px rgba(0,0,0,0.10), 0 4px 8px rgba(0,0,0,0.06);
+
+  /* 過渡 */
+  --ease: 0.18s ease;
+
+  /* 字體 */
+  --font-ui: 'Noto Sans TC', 'Inter', 'Microsoft JhengHei', system-ui, sans-serif;
+}
+
+/* ─── Reset ─────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-ui);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* ─── 通用工具類 ─────────────────────────────────── */
+.hidden {
+  display: none !important;
+}
+
+/* ─── 輸入元件基礎樣式 ─────────────────────────── */
+input[type="text"],
+input[type="date"],
+input[type="month"],
+select,
+textarea {
+  font-family: var(--font-ui);
+  font-size: 14px;
+  color: var(--text-primary);
+  background: var(--bg-surface);
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 9px 13px;
+  outline: none;
+  width: 100%;
+  transition: border-color var(--ease), box-shadow var(--ease);
+}
+
+input[type="text"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px var(--accent-shadow);
+}
+
+input[type="color"] {
+  border: 1.5px solid var(--border);
+  border-radius: var(--r-sm);
+  cursor: pointer;
+  background: none;
+  padding: 2px;
+  transition: border-color var(--ease);
+}
+
+input[type="color"]:hover {
+  border-color: var(--accent);
+}
+
+/* ─── 按鈕系統 ─────────────────────────────────── */
+button {
+  font-family: var(--font-ui);
+  cursor: pointer;
+  border: none;
+  outline: none;
+  transition: all var(--ease);
+}
+
+.btn-primary {
+  background: var(--accent);
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: var(--r-full);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  box-shadow: 0 3px 10px var(--accent-shadow);
+}
+
+.btn-primary:hover {
+  background: var(--accent-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px var(--accent-shadow);
+}
+
+.btn-primary:active {
+  transform: translateY(0);
+}
+
+.btn-secondary {
+  background: var(--bg-surface);
+  color: var(--text-secondary);
+  padding: 10px 20px;
+  border-radius: var(--r-full);
+  font-size: 14px;
+  font-weight: 500;
+  border: 1.5px solid var(--border);
+  box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.btn-outline {
+  background: transparent;
+  color: var(--accent);
+  padding: 10px 20px;
+  border-radius: var(--r-full);
+  font-size: 14px;
+  font-weight: 500;
+  border: 1.5px solid var(--accent);
+}
+
+.btn-outline:hover {
+  background: var(--accent-light);
+  transform: translateY(-1px);
+}
+
+.btn-large {
+  padding: 14px 36px;
+  font-size: 16px;
+}
