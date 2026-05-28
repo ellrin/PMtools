@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FlowChater</title>
+
+  <link rel="stylesheet" href="styles/reset_and_design_tokens.css">
+  <link rel="stylesheet" href="styles/application_page_layout.css">
+  <link rel="stylesheet" href="styles/json_input_workspace.css">
+  <link rel="stylesheet" href="styles/diagram_preview_workspace.css">
+  <link rel="stylesheet" href="styles/theme_and_control_panel.css">
+</head>
+<body>
+  <div class="application_shell">
+    <header class="application_header">
+      <div class="brand_area">
+        <div class="brand_mark">F</div>
+        <div>
+          <h1>FlowChater</h1>
+          <p>JSON to editable flowchart slides</p>
+        </div>
+      </div>
+      <nav class="step_navigation">
+        <button class="navigation_button is_active" id="go_to_input_button" type="button">1. JSON input</button>
+        <button class="navigation_button" id="go_to_preview_button" type="button">2. Preview and export</button>
+      </nav>
+    </header>
+
+    <main class="page_workspace" id="json_input_page">
+      <section class="input_toolbar">
+        <div>
+          <h2>輸入流程圖 JSON</h2>
+          <p>支援中文與英文文字。每個 node 可以自訂 width、height、fill、stroke。</p>
+        </div>
+        <div class="toolbar_actions">
+          <label class="secondary_button" for="json_file_input">Upload JSON</label>
+          <input class="visually_hidden" id="json_file_input" type="file" accept=".json,application/json">
+          <button class="secondary_button" id="load_example_button" type="button">Load example</button>
+          <button class="primary_button" id="render_preview_button" type="button">Render preview</button>
+        </div>
+      </section>
+
+      <section class="json_editor_frame">
+        <textarea id="json_textarea" spellcheck="false" aria-label="Flowchart JSON input"></textarea>
+      </section>
+      <p class="status_message" id="json_status_message">Ready.</p>
+    </main>
+
+    <main class="page_workspace is_hidden" id="diagram_preview_page">
+      <aside class="style_control_panel">
+        <section class="control_group">
+          <h2>Typography</h2>
+          <label class="field_label" for="font_family_select">Font family</label>
+          <select id="font_family_select"></select>
+
+          <label class="field_label" for="font_size_slider">Block text size</label>
+          <div class="slider_row">
+            <input id="font_size_slider" type="range" min="12" max="30" value="18">
+            <span id="font_size_value">18 px</span>
+          </div>
+        </section>
+
+        <section class="control_group">
+          <h2>Layout</h2>
+          <label class="field_label">Direction</label>
+          <div class="direction_btn_row">
+            <button class="direction_btn" id="direction_lr_btn" type="button">↔ Left → Right</button>
+            <button class="direction_btn" id="direction_tb_btn" type="button">↕ Top → Bottom</button>
+          </div>
+
+          <label class="field_label" for="corner_radius_slider">Corner radius</label>
+          <div class="slider_row">
+            <input id="corner_radius_slider" type="range" min="0" max="36" value="16">
+            <span id="corner_radius_value">16 px</span>
+          </div>
+
+          <label class="field_label" for="node_gap_slider">Node gap</label>
+          <div class="slider_row">
+            <input id="node_gap_slider" type="range" min="24" max="120" value="60">
+            <span id="node_gap_value">60 px</span>
+          </div>
+        </section>
+
+        <section class="control_group">
+          <h2>Export</h2>
+          <div class="export_button_grid">
+            <button class="secondary_button" id="download_svg_button" type="button">SVG</button>
+            <button class="secondary_button" id="download_png_button" type="button">PNG</button>
+            <button class="primary_button" id="download_pptx_button" type="button">PPTX</button>
+          </div>
+        </section>
+      </aside>
+
+      <section class="preview_workspace">
+        <div class="preview_top_bar">
+          <div>
+            <h2 id="preview_title">Flowchart preview</h2>
+            <p id="preview_summary">No diagram rendered yet.</p>
+          </div>
+          <div class="preview_actions">
+            <button class="secondary_button" id="reset_layout_button" type="button">Reset layout</button>
+            <button class="secondary_button" id="back_to_input_button" type="button">Back to JSON</button>
+          </div>
+        </div>
+        <div class="diagram_canvas_shell">
+          <div id="diagram_svg_container" class="diagram_svg_container"></div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="scripts/data_examples/default_flowchart_json.js"></script>
+  <script src="scripts/style_presets/color_theme_presets.js"></script>
+  <script src="scripts/style_presets/font_family_presets.js"></script>
+  <script src="scripts/application_state/flowchart_state_store.js"></script>
+  <script src="scripts/json_handling/json_input_controller.js"></script>
+  <script src="scripts/diagram_layout/simple_rank_layout_engine.js"></script>
+  <script src="scripts/diagram_rendering/anchor_point_calculator.js"></script>
+  <script src="scripts/diagram_rendering/svg_flowchart_renderer.js"></script>
+  <script src="scripts/export_handlers/image_export_controller.js"></script>
+  <script src="scripts/export_handlers/pptx_export_controller.js"></script>
+  <script src="scripts/page_interactions/page_navigation_controller.js"></script>
+  <script src="scripts/page_interactions/style_control_controller.js"></script>
+  <script src="scripts/page_interactions/drag_controller.js"></script>
+  <script src="scripts/main_application_entry.js"></script>
+</body>
+</html>

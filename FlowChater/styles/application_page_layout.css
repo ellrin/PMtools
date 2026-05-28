@@ -1,0 +1,94 @@
+.application_shell {
+  min-height: 100vh;
+}
+
+.application_header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  padding: 14px 24px;
+  background: rgba(255, 255, 255, 0.96);
+  border-bottom: 1px solid var(--line_soft);
+  backdrop-filter: blur(12px);
+}
+
+.brand_area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.brand_mark {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: var(--radius_medium);
+  background: #111827;
+  color: #ffffff;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+.brand_area h1 {
+  margin: 0;
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+.brand_area p {
+  margin: 1px 0 0;
+  color: var(--text_muted);
+  font-size: 12px;
+}
+
+.step_navigation {
+  display: flex;
+  gap: 8px;
+}
+
+.navigation_button.is_active {
+  background: var(--accent_soft);
+  border-color: #93c5fd;
+  color: #1d4ed8;
+}
+
+.page_workspace {
+  padding: 20px 24px;
+}
+
+/* Preview page: sidebar + main area side by side */
+#diagram_preview_page {
+  display: grid;
+  grid-template-columns: 280px minmax(0, 1fr);
+  gap: 18px;
+  align-items: start;
+}
+
+@media (max-width: 960px) {
+  .application_header,
+  .input_toolbar,
+  .preview_top_bar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  #diagram_preview_page {
+    grid-template-columns: 1fr;
+  }
+
+  .step_navigation,
+  .toolbar_actions,
+  .preview_actions {
+    flex-wrap: wrap;
+  }
+
+  .style_control_panel {
+    position: static !important;
+    max-height: none !important;
+  }
+}

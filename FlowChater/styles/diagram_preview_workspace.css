@@ -1,0 +1,56 @@
+.preview_workspace {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.preview_top_bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.preview_top_bar h2 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.preview_top_bar p {
+  margin: 4px 0 0;
+  color: var(--text_muted);
+  font-size: 13px;
+}
+
+.preview_actions {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.diagram_canvas_shell {
+  min-height: calc(100vh - 180px);
+  overflow: auto;
+  padding: 20px;
+  background: #dfe7f1;
+  border: 1px solid var(--line_soft);
+  border-radius: var(--radius_large);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.5);
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.diagram_svg_container {
+  width: 100%;
+}
+
+.flowchart_svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius_medium);
+  box-shadow: var(--shadow_soft);
+  user-select: none;
+}

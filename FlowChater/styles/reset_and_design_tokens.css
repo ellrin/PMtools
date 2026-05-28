@@ -1,0 +1,81 @@
+:root {
+  --page_background: #eef2f6;
+  --surface: #ffffff;
+  --surface_muted: #f7f9fc;
+  --line_soft: #d9e1ea;
+  --line_strong: #b8c4d3;
+  --text_main: #172033;
+  --text_muted: #65758b;
+  --accent: #2563eb;
+  --accent_hover: #1d4ed8;
+  --accent_soft: #dbeafe;
+  --danger: #dc2626;
+  --shadow_soft: 0 10px 28px rgba(18, 32, 56, 0.08);
+  --radius_small: 6px;
+  --radius_medium: 8px;
+  --radius_large: 12px;
+  --font_interface: "Noto Sans TC", "Inter", "Microsoft JhengHei", system-ui, sans-serif;
+  --font_code: "Roboto Mono", "Consolas", monospace;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--page_background);
+  color: var(--text_main);
+  font-family: var(--font_interface);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.is_hidden,
+.visually_hidden {
+  display: none !important;
+}
+
+.primary_button,
+.secondary_button,
+.navigation_button {
+  border-radius: var(--radius_small);
+  border: 1px solid transparent;
+  min-height: 38px;
+  padding: 8px 14px;
+  font-weight: 700;
+}
+
+.primary_button {
+  background: var(--accent);
+  color: #ffffff;
+}
+
+.primary_button:hover {
+  background: var(--accent_hover);
+}
+
+.secondary_button,
+.navigation_button {
+  background: var(--surface);
+  border-color: var(--line_soft);
+  color: var(--text_main);
+}
+
+.secondary_button:hover,
+.navigation_button:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
